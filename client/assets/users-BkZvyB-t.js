@@ -1,1 +1,0 @@
-import{u as e,v as t}from"./web-aFgBiHvV.js";var n=t(`<main><h1>Users`);function r(t){var r=n();return r.firstChild,e(r,()=>t.children,null),r}export{r as default};

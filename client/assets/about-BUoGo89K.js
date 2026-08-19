@@ -1,1 +1,0 @@
-import{S as e,u as t,v as n}from"./web-aFgBiHvV.js";import{r}from"./virtual_solid-ssr-entry-client-CXZwk4ol.js";var i=n(`<main class=google-sans-flex-450><h1>About Sort Chess </h1><p>Visit to learn how to build Solid apps.`);function a(){var n=i();return n.firstChild,t(n,e(r,{children:`Sort Chess - About `}),n.firstChild),n}export{a as default};
