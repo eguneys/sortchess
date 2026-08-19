@@ -1,4 +1,5 @@
 import { Title } from '@solidjs/meta';
+import { Router } from '../router';
 import './Home.scss'
 import Footer from '../components/Footer';
 import PlaySortChessHeader from '../components/PlaySortChessHeader';
@@ -10,14 +11,14 @@ export default function Home() {
       <PlaySortChessHeader />
       <h2 class='select-game-mode-header'>Select Game Mode:</h2>
       <div class='game-mode-selection-container'>
-        <a href="sort">Story Mode</a>
-        <a href="sort">Arcade Mode</a>
-        <a href="sort">Regular Sort Chess 3</a>
-        <a href="sort">Countdown Sort Chess 3</a>
-        <a href="sort">Gradient Sort Chess 4</a>
-        <a href="sort">Gradient Sort Chess 7</a>
-        <a href="sort">Classical Sort Chess 3 in 8</a>
-        <a href="sort">Classical Gradient Sort Chess 6 in 8</a>
+        <a href={Router.paths.games.story}>Story Mode</a>
+        <a href={Router.paths.games.arcade}>Arcade Mode</a>
+        <a href={Router.paths.games.regular}>Regular Sort Chess 3</a>
+        <a href={Router.paths.games.countdown}>Countdown Sort Chess 3</a>
+        <a href={Router.paths.games.gradient4}>Gradient Sort Chess 4</a>
+        <a href={Router.paths.games.gradient7}>Gradient Sort Chess 7</a>
+        <a href={Router.paths.games.classical}>Classical Sort Chess 3 in 8</a>
+        <a href={Router.paths.games.classical6}>Classical Gradient Sort Chess 6 in 8</a>
       </div>
       <h2 class='select-game-mode-header'>Profile:</h2>
       <div class='profile-container'>
