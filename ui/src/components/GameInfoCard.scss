@@ -1,0 +1,17 @@
+@use "../core.scss";
+@use "../cl.scss";
+
+.game-info-card {
+  @include cl.flex-row;
+  gap: core.$space-3;
+  background: core.$color-surface;
+  padding: core.$space-1;
+  justify-content: space-around;
+
+  border-radius: core.$space-0;
+  border: core.$space-0 solid core.$color-border;
+
+  .date {
+    color: core.$color-text-secondary;
+  }
+}

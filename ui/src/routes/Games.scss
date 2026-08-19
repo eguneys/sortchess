@@ -1,0 +1,6 @@
+@use "../cl.scss";
+
+main.game-mode-wrap {
+  @include cl.flex-col;
+  flex: 1;
+}

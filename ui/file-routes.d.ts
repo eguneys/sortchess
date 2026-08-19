@@ -39,6 +39,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/index")>;
+      $$route?: undefined;
+    },
+    {
       path: "/users";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/users")>;
@@ -51,45 +57,9 @@ declare module "virtual:file-routes" {
       $$route: FileRouteEagerRef<typeof import("./src/routes/[...404]")>;
     },
     {
-      path: "/users/:id";
+      path: "/games/arcade";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/users/[id]")>;
-      $$route: FileRouteEagerRef<typeof import("./src/routes/users/[id]")>;
-    },
-    {
-      path: "/games/story";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/games/story")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/games/regular";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/games/regular")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/games/gradient7";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/games/gradient7")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/games/gradient4";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/games/gradient4")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/games/countdown";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/games/countdown")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/games/classical6";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/games/classical6")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/games/arcade")>;
       $$route?: undefined;
     },
     {
@@ -99,16 +69,58 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/games/arcade";
+      path: "/games/classical6";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/games/arcade")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/games/classical6")>;
       $$route?: undefined;
     },
     {
-      path: "/";
+      path: "/games/countdown";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/index")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/games/countdown")>;
       $$route?: undefined;
+    },
+    {
+      path: "/games/gradient4";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/games/gradient4")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/games/gradient7";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/games/gradient7")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/games/regular";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/games/regular")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/games/story";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/games/story")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/users/:id";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/users/[id]")>;
+      $$route: FileRouteEagerRef<typeof import("./src/routes/users/[id]")>;
+    },
+    {
+      path: "/games/regular/";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/games/regular/index")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/games/regular/:id";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/games/regular/[id]")>;
+      $$route: FileRouteEagerRef<typeof import("./src/routes/games/regular/[id]")>;
     },
     {
       path: "/games";
@@ -191,21 +203,30 @@ declare module "virtual:file-routes" {
           page: true;
           $component: FileRouteLazyRef<typeof import("./src/routes/games/regular")>;
           $$route?: undefined;
-          children?: undefined;
+          children: readonly [
+            {
+              path: "/";
+              id: "/";
+              page: true;
+              $component: FileRouteLazyRef<typeof import("./src/routes/games/regular/index")>;
+              $$route?: undefined;
+              children?: undefined;
+            },
+            {
+              path: "/:id";
+              id: "/:id";
+              page: true;
+              $component: FileRouteLazyRef<typeof import("./src/routes/games/regular/[id]")>;
+              $$route: FileRouteEagerRef<typeof import("./src/routes/games/regular/[id]")>;
+              children?: undefined;
+            }
+          ];
         },
         {
-          path: "/gradient7";
-          id: "/gradient7";
+          path: "/classical";
+          id: "/classical";
           page: true;
-          $component: FileRouteLazyRef<typeof import("./src/routes/games/gradient7")>;
-          $$route?: undefined;
-          children?: undefined;
-        },
-        {
-          path: "/gradient4";
-          id: "/gradient4";
-          page: true;
-          $component: FileRouteLazyRef<typeof import("./src/routes/games/gradient4")>;
+          $component: FileRouteLazyRef<typeof import("./src/routes/games/classical")>;
           $$route?: undefined;
           children?: undefined;
         },
@@ -218,10 +239,18 @@ declare module "virtual:file-routes" {
           children?: undefined;
         },
         {
-          path: "/classical";
-          id: "/classical";
+          path: "/gradient4";
+          id: "/gradient4";
           page: true;
-          $component: FileRouteLazyRef<typeof import("./src/routes/games/classical")>;
+          $component: FileRouteLazyRef<typeof import("./src/routes/games/gradient4")>;
+          $$route?: undefined;
+          children?: undefined;
+        },
+        {
+          path: "/gradient7";
+          id: "/gradient7";
+          page: true;
+          $component: FileRouteLazyRef<typeof import("./src/routes/games/gradient7")>;
           $$route?: undefined;
           children?: undefined;
         },

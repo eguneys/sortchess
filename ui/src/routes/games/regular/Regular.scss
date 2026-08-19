@@ -1,0 +1,16 @@
+@use "../../../core.scss";
+@use "../../../cl.scss";
+
+.regular-wrapper {
+  @include cl.flex-col;
+  flex: 1;
+
+  gap: core.$space-0;
+
+  .play-wrapper {
+    @include cl.flex-col;
+    flex: 1;
+
+    background: core.$color-surface;
+  }
+}

@@ -13,7 +13,7 @@ export default function Home() {
       <div class='game-mode-selection-container'>
         <a href={Router.paths.games.story}>Story Mode</a>
         <a href={Router.paths.games.arcade}>Arcade Mode</a>
-        <a href={Router.paths.games.regular}>Regular Sort Chess 3</a>
+        <a href={Router.paths.games.regular("aasdf")}>Regular Sort Chess 3</a>
         <a href={Router.paths.games.countdown}>Countdown Sort Chess 3</a>
         <a href={Router.paths.games.gradient4}>Gradient Sort Chess 4</a>
         <a href={Router.paths.games.gradient7}>Gradient Sort Chess 7</a>

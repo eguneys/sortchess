@@ -1,0 +1,40 @@
+@use "../core.scss";
+@use "../cl.scss";
+
+.sort-chess-3 {
+  width: 100%;
+  height: 100%;
+
+  .sorting-layer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    .position {
+      position: absolute;
+      background: core.$color-primary;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      border-radius: core.$space-1;
+      box-shadow: 2px 2px 2px core.$color-primary-active;
+
+      cursor: pointer;
+      -webkit-user-select: none;
+      user-select: none;
+
+      transition: top ease-in-out 60ms;
+
+      &:hover {
+        background: core.$color-primary-hover;
+      }
+
+      &.active {
+        background: core.$color-primary-active;
+        top: -1px;
+      }
+    }
+  }
+}
