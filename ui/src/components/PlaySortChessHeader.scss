@@ -1,0 +1,22 @@
+.hello-header {
+  position: relative;
+  letter-spacing: 0.05em;
+
+  .play-word {
+    display: inline-block;
+    position: absolute;
+
+    transition: transform ease-in-out 300ms;
+  }
+
+  .rotate-char {
+    display: inline-block;
+
+    transition: transform ease-in-out 300ms;
+    margin-left: 280px;
+
+    &.kick {
+      transform: rotate(15deg);
+    }
+  }
+}

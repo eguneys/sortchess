@@ -1,0 +1,66 @@
+@use "../core.scss";
+@use "../cl.scss";
+
+main.home-main {
+  @include cl.flex-col;
+
+  h1.hello-header {
+    color: core.$color-text-primary;
+  }
+
+  h2.select-game-mode-header {
+    color: core.$color-text-secondary;
+  }
+
+  .game-mode-selection-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: core.$space-1;
+
+    text-align: center;
+
+    a {
+      color: core.$color-bg;
+      background: core.$color-primary;
+      border-radius: core.$space-0;
+      border: core.$space-0 solid core.$color-border;
+      padding: core.$space-2;
+      transition: cubic-bezier(1, 0, 0, 1) 150ms;
+
+      &:hover {
+        color: core.$color-surface;
+        background: core.$color-primary-hover;
+
+        transform: translateY(-1px);
+      }
+    }
+  }
+
+  .profile {
+    .grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: repeat(8, 1fr);
+      background-color: core.$color-border;
+
+      gap: core.$space-0;
+      padding: core.$space-0;
+
+      border-radius: core.$space-0;
+
+      .header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background: core.$color-bg;
+        width: 14em;
+      }
+
+      .body {
+        background: core.$color-bg;
+        padding: core.$space-0;
+      }
+    }
+  }
+}

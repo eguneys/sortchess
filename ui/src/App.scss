@@ -1,0 +1,14 @@
+@use "./core.scss";
+
+.main-wrapper {
+  display: grid;
+  grid-template-areas: ". . main . .";
+  grid-template-columns: 1fr core.$space-0 minmax(
+      auto,
+      1300px
+    ) core.$space-1 1fr;
+
+  main {
+    grid-area: main;
+  }
+}

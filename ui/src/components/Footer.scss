@@ -1,0 +1,9 @@
+@use "../core.scss";
+
+footer {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  margin-top: core.$space-6;
+  margin-bottom: core.$space-3;
+}
