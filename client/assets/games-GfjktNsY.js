@@ -1,0 +1,1 @@
+import{a as e,g as t,n,u as r,v as i}from"./web-aFgBiHvV.js";import{t as a}from"./virtual_solid-ssr-entry-client-CXZwk4ol.js";var o=i(`<main class="google-sans-flex-450 game-mode-wrap"><nav><a>Back Home`);function s(i){var s=o(),c=s.firstChild.firstChild;return n(c),r(s,()=>i.children,null),e(()=>a.paths(),e=>{t(c,`href`,e)}),s}export{s as default};
