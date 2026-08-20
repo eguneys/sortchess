@@ -1,0 +1,1 @@
+import{b as e,d as t}from"./web-CgjSr3r-.js";var n=e(`<div class=regular-wrapper>`);function r(e){return(()=>{var r=n();return t(r,()=>e.children),r})()}export{r as default};

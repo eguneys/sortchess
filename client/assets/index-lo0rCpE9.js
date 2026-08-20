@@ -1,0 +1,1 @@
+import{b as e}from"./web-CgjSr3r-.js";var t=e(`<div class=pool>Pool`);function n(){return t()}export{n as default};

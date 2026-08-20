@@ -1,1 +1,0 @@
-import{y as e}from"./web-BlYjfEbH.js";var t=e(`<div class=pool>Pool`);function n(){return t()}export{n as default};
