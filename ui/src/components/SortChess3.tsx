@@ -3,7 +3,7 @@ import './SortChess3.scss'
 import { Chessboard } from './Chessboard'
 import { INITIAL_FEN } from 'chessops/fen'
 import { createLoop, makeSpring, Spring, updateSpring } from './loop'
-import { update as updateMouse, createMouse, Mouse } from './mouse'
+import { setBounds as setBoundsMouse, update as updateMouse, createMouse, Mouse } from './mouse'
 import { FEN } from '@lichess-org/chessground/types'
 
 function lerp(a: number, b: number, t: number) {
@@ -58,8 +58,11 @@ export default function SortChess3(props: { fens: [FEN, FEN, FEN] }) {
         }
 
         if (mouse.is_just_down) {
+            console.log(mouse.is_hovering.x, mouse.is_just_down.x)
             for (let card of cards) {
-                if (card.hovering) {
+                let x = card.x_spring.position - store.size / 2
+                let w = store.size
+                if (x < mouse.is_just_down.x && mouse.is_just_down.x < x + w) {
                     card.dragging = true
                     card.x_spring.target = mouse.is_just_down.x
                     break
@@ -143,6 +146,8 @@ export default function SortChess3(props: { fens: [FEN, FEN, FEN] }) {
             cards[2].x_spring.target = slots[cards[2].target_slot]
             store.bounds = { top: rect.top, left: rect.left, width: rect.width, height: rect.height, slots }
         })
+
+        setBoundsMouse(mouse, rect.top, rect.left, rect.width, rect.height)
     }
 
     const size_px = createMemo(() => `${store.size}px`)
@@ -152,6 +157,8 @@ export default function SortChess3(props: { fens: [FEN, FEN, FEN] }) {
     let loop: () => void
 
     onSettled(() => {
+        mouse = createMouse(sortingLayerRef)
+
         let observer = new ResizeObserver(() => {
             setBounds(sortingLayerRef.getBoundingClientRect())
         })
@@ -161,7 +168,6 @@ export default function SortChess3(props: { fens: [FEN, FEN, FEN] }) {
 
         loop = createLoop(updateCards)
 
-        mouse = createMouse(sortingLayerRef)
 
         return () => {
             loop()

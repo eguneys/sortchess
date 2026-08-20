@@ -28,6 +28,7 @@ export function createMouse(canvas: HTMLElement): Mouse {
 
     const on_down = (self: Mouse, x: number, y: number) => {
         self.is_just_down = normalize(self, x, y)
+        self.is_hovering = normalize(self, x, y)
     }
 
     const on_move = (self: Mouse, x: number, y: number) => {
@@ -37,6 +38,7 @@ export function createMouse(canvas: HTMLElement): Mouse {
 
     const on_up = (self: Mouse, x: number, y: number) => {
         self.is_just_up = normalize(self, x, y)
+        self.is_hovering = normalize(self, x, y)
     }
 
     const onDown = (e: PointerEvent) => {
