@@ -45,12 +45,6 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/index")>;
-      $$route?: undefined;
-    },
-    {
       path: "/users";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/users")>;
@@ -127,6 +121,12 @@ declare module "virtual:file-routes" {
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/(games)/regular/[id]")>;
       $$route: FileRouteEagerRef<typeof import("./src/routes/(games)/regular/[id]")>;
+    },
+    {
+      path: "/";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/index")>;
+      $$route?: undefined;
     }
   ];
   export default routes;

@@ -22,16 +22,23 @@ export function Chessboard(props: { fen: FEN, last_move?: Move, on_wheel?: (_: n
     onSettled(() => {
 
         let config: Config = {
-            fen: props.fen,
             viewOnly: true
         }
-        if (props.last_move) {
-            config.lastMove = [square(props.last_move.from) as Key, square(props.last_move.to) as Key]
-        }
+
         ground = Chessground($el, config)
 
         if (props.shapes)
             ground.setShapes(props.shapes)
+    })
+
+    createEffect(() => ({ last_move: props.last_move, fen: props.fen }), (props) => {
+        let config: Config = {
+            fen: props.fen
+        }
+        if (props.last_move) {
+            config.lastMove = [square(props.last_move.from) as Key, square(props.last_move.to) as Key]
+        }
+        ground.set(config)
     })
 
     createEffect(() => props.shapes, (shapes) => {

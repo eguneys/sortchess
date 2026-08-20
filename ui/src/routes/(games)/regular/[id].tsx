@@ -1,7 +1,6 @@
 import { query, RouteDefinition, RouteProps } from "@solidjs/router";
 import GameInfoCard from "../../../components/GameInfoCard";
 import { createMemo } from "solid-js";
-import './Regular.scss'
 import SortChess3 from "../../../components/SortChess3";
 
 
