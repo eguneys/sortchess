@@ -23,8 +23,12 @@ export default function Regular(props: RouteProps<'/games/regular/:id'>) {
         <div class='info-wrapper'>
             <GameInfoCard title="Regular Sort Chess 3" date={new Date()} id={props.params.id} />
         </div>
-        <div class='play-wrapper'>
+        <div class='slide-wrapper'>
             <SortChess3 />
+        </div>
+        <div class='actions'>
+            <p>Sort positions by how much white is better.</p>
+            <button>Submit</button>
         </div>
     </>)
 }

@@ -1,40 +1,40 @@
 @use "../core.scss";
 @use "../cl.scss";
 
-.sort-chess-3 {
+.sorting-layer {
+  overflow: hidden;
   width: 100%;
   height: 100%;
+  position: relative;
 
-  .sorting-layer {
-    width: 100%;
-    height: 100%;
-    position: relative;
+  .position {
+    overflow: hidden;
+    position: absolute;
+    background: core.$color-primary;
+    top: 50%;
+    left: 0;
+    right: 0;
+    bottom: 0;
 
-    .position {
-      position: absolute;
-      background: core.$color-primary;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+    border-radius: core.$space-1;
+    box-shadow: -1px -1px 1px 2px core.$color-primary-active;
 
-      border-radius: core.$space-1;
-      box-shadow: 2px 2px 2px core.$color-primary-active;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
 
-      cursor: pointer;
-      -webkit-user-select: none;
-      user-select: none;
+    transition: top ease-in-out 60ms;
 
-      transition: top ease-in-out 60ms;
+    &:hover {
+      background: core.$color-primary-hover;
+    }
 
-      &:hover {
-        background: core.$color-primary-hover;
-      }
+    &.dragging {
+      background: core.$color-primary-active;
+    }
 
-      &.active {
-        background: core.$color-primary-active;
-        top: -1px;
-      }
+    &.z-index-on-top {
+      z-index: 1;
     }
   }
 }
