@@ -44,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: production-files
-          path: web/ui/dist
+          path: web/ui/dist/client
 
 
   deploy:
@@ -60,11 +60,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: production-files
-          path: web/ui/dist
+          path: web/ui/dist/client
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: web/ui/dist
+          publish_dir: web/ui/dist/client
           cname: sortchess.com

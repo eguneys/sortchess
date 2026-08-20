@@ -8,7 +8,7 @@ export default function GameInfoCard(props: { title: string, date: Date, id?: st
             <p class='title'>{props.title}</p>
             <p class='date'>{formatDateTime(props.date)}</p>
             <Show when={props.id}>{id =>
-                <a class='id' href={Router.paths.games.regular(id())}>#{id()}</a>
+                <>#{id()}</>
             }</Show>
         </div>
     </>)
