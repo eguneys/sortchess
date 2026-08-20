@@ -39,7 +39,10 @@ export function createMouse(canvas: HTMLElement): Mouse {
         self.is_just_up = normalize(self, x, y)
     }
 
-    const onDown = (e: PointerEvent) => on_down(self, e.clientX, e.clientY)
+    const onDown = (e: PointerEvent) => {
+        canvas.setPointerCapture(e.pointerId)
+        on_down(self, e.clientX, e.clientY)
+    }
     const onMove = (e: PointerEvent) => on_move(self, e.clientX, e.clientY)
     const onUp = (e: PointerEvent) => on_up(self, e.clientX, e.clientY)
 

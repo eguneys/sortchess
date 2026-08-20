@@ -24,7 +24,7 @@ import './Regular.scss'
 
 const getRegular = async () => {
   const origin = location.origin;
-  const response = await fetch(new URL('/games/regular.json', origin));
+  const response = await fetch(new URL('/games/fen_evals_compact.json', origin));
   const regular: Array<{ fen: string; cp_eval: number }> =
     await response.json();
   return regular ?? []
