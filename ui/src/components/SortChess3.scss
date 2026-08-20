@@ -9,6 +9,7 @@
   touch-action: none;
 
   .position {
+    touch-action: none;
     overflow: hidden;
     position: absolute;
     background: core.$color-primary;
