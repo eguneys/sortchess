@@ -68,13 +68,19 @@ function Bin_Evals(evals: FenEval[], range: Range): FenEval[][] {
 
         let index = Math.floor(t * nb_bins)
 
+        if (!e.fen.includes('w')) {
+            continue
+        }
+
         res[index].push(e)
     }
 
-    for (let a of res) {
-        if (a.length === 0) {
+    for (let j = 0; j < res.length; j++) {
+        if (res[j].length < 100) {
             throw `Empty bin exception ${range.advantage} for ${range.color}`
         }
+
+        res[j] = res[j].slice(0, 200)
     }
 
     return res

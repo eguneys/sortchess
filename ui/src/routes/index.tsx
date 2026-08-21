@@ -22,6 +22,7 @@ export default function Home() {
 
 import './Regular.scss'
 import { FEN } from '@lichess-org/chessground/types';
+import { opposite } from 'chessops';
 
 
 
@@ -82,6 +83,19 @@ function Regular() {
 
     let puzzle_pattern = arr_pick(PuzzlePatterns)
     let color_pattern = arr_pick(ColorPatterns)
+
+    // deal breaker
+    {
+      if (puzzle_pattern[0] === puzzle_pattern[1]) {
+        color_pattern[0] = opposite(color_pattern[1])
+      }
+      if (puzzle_pattern[1] === puzzle_pattern[2]) {
+        color_pattern[1] = opposite(color_pattern[2])
+      }
+      if (puzzle_pattern[0] === puzzle_pattern[2]) {
+        color_pattern[0] = opposite(color_pattern[2])
+      }
+    }
 
     let result = puzzle_pattern.map((pattern, i) => {
       let range = regular.ranges.findIndex(_ => _.advantage === pattern && _.color === color_pattern[i])
@@ -175,6 +189,7 @@ function Regular() {
       </Show>
       <p class='flex-col-end'>
         Rank positions by how much white is better
+        <small>Always white to move</small>
       </p>
       <button onClick={checkSortOrder}>{revealed() ? 'Next Puzzle' : 'Submit'}</button>
     </div>
