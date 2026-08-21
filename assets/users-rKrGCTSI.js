@@ -1,0 +1,1 @@
+import{b as e,d as t}from"./web-DESXOR_B.js";var n=e(`<main><h1>Users`);function r(e){var r=n();return r.firstChild,t(r,()=>e.children,null),r}export{r as default};
