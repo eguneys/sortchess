@@ -1,1 +1,0 @@
-import{b as e,d as t,o as n,r,v as i}from"./web-DESXOR_B.js";import{t as a}from"./virtual_solid-ssr-entry-client-CLRspXoj.js";var o=e(`<main class="google-sans-flex-450 game-mode-wrap"><nav><a>Go Back Home`);function s(e){var s=o(),c=s.firstChild.firstChild;return r(c),t(s,()=>e.children,null),n(()=>a.paths(),e=>{i(c,`href`,e)}),s}export{s as default};
