@@ -133,6 +133,8 @@ a {
   color: core.$color-text-link;
   text-decoration: none;
 
+  cursor: pointer;
+
   &:hover {
     color: core.$color-primary-hover;
     text-decoration: underline;

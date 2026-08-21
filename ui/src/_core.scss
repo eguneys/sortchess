@@ -11,6 +11,9 @@
 $neutral-base: #1a1a1a; // near-black, warm neutral
 $accent-base: #ce3c37; // muted terracotta accent
 
+$green-base: #0edc07; // muted terracotta accent
+$red-base: #dc0e07; // muted terracotta accent
+
 // ---- HELPER: mix toward white (positive) or black (negative) ----
 @function shade($color, $amount) {
   @if $amount > 0 {
@@ -43,6 +46,34 @@ $accent-600: shade($accent-base, -12%); // hover
 $accent-700: shade($accent-base, -25%); // active/pressed
 $accent-800: shade($accent-base, -38%);
 $accent-900: shade($accent-base, -50%);
+
+// ---- GREEN SCALE ----
+$green-50: shade($green-base, 92%); // tint backgrounds (badges, alerts)
+$green-100: shade($green-base, 80%);
+$green-200: shade($green-base, 65%);
+$green-300: shade($green-base, 48%);
+$green-400: shade($green-base, 25%);
+$green-500: $green-base; // base / primary buttons & links
+$green-600: shade($green-base, -12%); // hover
+$green-700: shade($green-base, -25%); // active/pressed
+$green-800: shade($green-base, -38%);
+$green-900: shade($green-base, -50%);
+
+// ---- RED SCALE ----
+$red-50: shade($red-base, 92%); // tint backgrounds (badges, alerts)
+$red-100: shade($red-base, 80%);
+$red-200: shade($red-base, 65%);
+$red-300: shade($red-base, 48%);
+$red-400: shade($red-base, 25%);
+$red-500: $red-base; // base / primary buttons & links
+$red-600: shade($red-base, -12%); // hover
+$red-700: shade($red-base, -25%); // active/pressed
+$red-800: shade($red-base, -38%);
+$red-900: shade($red-base, -50%);
+
+$color-correct: $green-500;
+$color-semicorrect: $red-400;
+$color-wrong: $red-500;
 
 // ---- SEMANTIC ALIASES (use these in components, not raw scale steps) ----
 $color-bg: $neutral-50;

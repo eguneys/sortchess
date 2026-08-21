@@ -29,9 +29,25 @@ export function Chessboard(props: { fen: FEN, last_move?: Move, on_wheel?: (_: n
 
         if (props.shapes)
             ground.setShapes(props.shapes)
+
+        if (pendingSet) {
+            let config: Config = {
+                fen: props.fen
+            }
+            if (props.last_move) {
+                config.lastMove = [square(props.last_move.from) as Key, square(props.last_move.to) as Key]
+            }
+            ground.set(config)
+        }
     })
 
+    let pendingSet: { last_move: string, fen: string } | undefined = undefined
+
     createEffect(() => ({ last_move: props.last_move, fen: props.fen }), (props) => {
+        if (!ground) {
+            pendingSet = props
+            return
+        }
         let config: Config = {
             fen: props.fen
         }

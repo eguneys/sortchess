@@ -17,9 +17,52 @@
 
     .rank {
       flex: 1;
-      font-size: 2em;
       margin-left: core.$space-2;
+
+      display: flex;
+      align-items: flex-end;
+      gap: core.$space-4;
     }
+
+    .rank {
+      .index {
+        font-size: 2em;
+      }
+      .advantage {
+        font-size: 1.3em;
+        flex: 3;
+      }
+
+      .cp-eval {
+        font-size: 2em;
+        flex: 1;
+      }
+
+      .copy {
+        padding-right: 1em;
+        flex: 1;
+      }
+    }
+  }
+
+  .rankings {
+    &.correct {
+      background: core.$color-correct;
+    }
+
+    &.semi-correct {
+      background: core.$color-semicorrect;
+    }
+
+    &.wrong {
+      background: core.$color-wrong;
+    }
+  }
+
+  .hints {
+    @include cl.flex-row;
+    gap: core.$space-2;
+    color: core.$neutral-600;
   }
 
   .actions {

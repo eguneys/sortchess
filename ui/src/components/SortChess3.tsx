@@ -30,7 +30,7 @@ export const makeCard = (target_slot: number, x: number): Card => {
     }
 }
 
-export default function SortChess3(props: { fens: [FEN, FEN, FEN] }) {
+export default function SortChess3(props: { fens: [FEN, FEN, FEN], onSortOrder: (order: [number, number, number]) => void }) {
     const [store, setStore] = createStore({
         size: 0,
         bounds: { top: 0, left: 0, width: 0, height: 0, slots: [0, 0, 0] }
@@ -58,7 +58,6 @@ export default function SortChess3(props: { fens: [FEN, FEN, FEN] }) {
         }
 
         if (mouse.is_just_down) {
-            console.log(mouse.is_hovering.x, mouse.is_just_down.x)
             for (let card of cards) {
                 let x = card.x_spring.position - store.size / 2
                 let w = store.size
@@ -75,6 +74,9 @@ export default function SortChess3(props: { fens: [FEN, FEN, FEN] }) {
                 if (card.dragging) {
                     card.dragging = false
                     card.x_spring.target = store.bounds.slots[card.target_slot]
+
+                    props.onSortOrder([cards[0].target_slot, cards[1].target_slot, cards[2].target_slot])
+                    break
                 }
             }
         }

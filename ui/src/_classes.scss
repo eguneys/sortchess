@@ -1,3 +1,7 @@
+.text-right {
+  text-align: right;
+}
+
 .text-center {
   text-align: center;
 }
@@ -6,6 +10,12 @@
   display: flex;
   flex-flow: column;
 }
+.flex-col-end {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-end;
+}
+
 .flex-row {
   display: flex;
   flex-flow: row;

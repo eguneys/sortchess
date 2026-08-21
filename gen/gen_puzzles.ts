@@ -1,30 +1,76 @@
 import fs from 'fs'
 
-type FenEval = { fen: string cp_eval: number }
+type FenEval = { fen: string, cp_eval: number }
 
 let data: FenEval[] = JSON.parse(fs.readFileSync('data/fen_evals.json').toString())
 
+const Advantages = ['winning', 'big_advantage', 'slight_advantage', 'equal']
 
-type Advantage = 'winning' | 'big_advantage' | 'slight_advantage' | 'equal'
+type Advantage = typeof Advantages[number]
+
 type Color = 'white' | 'black'
 
-type Range = { advantage: Advantage, color: Color, min: number, max: number }
+type Range = {
+    advantage: Advantage
+    color: Color
+    min: number
+    max: number
+}
 
-function advantage_range(advantage: Advantage, color: Color) {
-    let sign = color === 'white' ? 1 : -1
+function advantageRange(
+    advantage: Advantage,
+    color: Color
+): Range {
+    const ranges: Record<Advantage, [number, number]> = {
+        winning: [350, 500],
+        big_advantage: [250, 300],
+        slight_advantage: [150, 200],
+        equal: [-90, 90],
+    } as const
 
-    switch (advantage) {
-        case 'winning': {
-            return { advantage, color, min: sign * 3000, max: sign * 20000 }
-        } break
-        case 'big_advantage': {
-            return { advantage, color, min: sign * 1500, max: sign * 2500 }
-        } break
-        case 'slight_advantage': {
-            return { advantage, color, min: sign * 300, max: sign * 1300 }
-        } break
-        case 'equal': {
-            return { advantage, color, min: -sign * 300, max: +sign * 300 }
-        } break
+    const [a, b] = ranges[advantage]
+
+    if (color === 'white') {
+        return { advantage, color, min: a, max: b }
+    }
+
+    return { advantage, color, min: -b, max: -a }
+}
+
+let ranges = [...Advantages.map(advantage => advantageRange(advantage, 'white')),
+...Advantages.map(advantage => advantageRange(advantage, 'black'))]
+
+let ranged_evals: FenEval[][] = ranges.map(_ => [])
+
+for (let sample of data) {
+    let range = ranges.findIndex(_ => _.min <= sample.cp_eval && sample.cp_eval < _.max)
+
+    if (range !== -1) {
+        ranged_evals[range].push(sample)
     }
 }
+
+let binned_evals: FenEval[][][] =
+    ranged_evals.map((evals, i) => Bin_Evals(evals, ranges[i]))
+
+function Bin_Evals(evals: FenEval[], range: Range): FenEval[][] {
+
+    let nb_bins = 4
+    let res: FenEval[][] = [...Array(nb_bins).keys()].map(_ => [])
+
+    for (let e of evals) {
+        let t = (e.cp_eval - range.min) / (range.max - range.min)
+
+        let index = Math.floor(t * nb_bins)
+
+        res[index].push(e)
+    }
+
+
+    return res
+}
+
+
+let binned_evals_with_ranges = { ranges, binned_evals }
+
+fs.writeFileSync('data/binned_evals_with_ranges.json', JSON.stringify(binned_evals_with_ranges))
