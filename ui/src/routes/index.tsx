@@ -47,13 +47,26 @@ const getRegular = async () => {
   return regular ?? []
 }
 
-const PuzzlePatterns: Advantage[][] =
+type PuzzlePattern = [Advantage, Advantage, Advantage]
+const PuzzlePatterns: PuzzlePattern[] =
   [
     ['equal', 'equal', 'slight_advantage'],
     ['equal', 'slight_advantage', 'big_advantage'],
     ['slight_advantage', 'slight_advantage', 'big_advantage'],
     ['slight_advantage', 'big_advantage', 'winning'],
     ['equal', 'big_advantage', 'winning'],
+  ]
+
+type ColorPattern = [Color, Color, Color]
+const ColorPatterns: ColorPattern[] =
+  [
+    ['white', 'white', 'white'],
+    ['black', 'black', 'black'],
+    ['white', 'black', 'black'],
+    ['white', 'white', 'black'],
+    ['black', 'black', 'white'],
+    ['black', 'white', 'black'],
+    ['white', 'black', 'white'],
   ]
 
 function Regular() {
@@ -64,19 +77,20 @@ function Regular() {
 
   const SelectPuzzles = createMemo(() => {
     triggerNext()
+
     let regular = Regular()
 
-    let puzzle_pattern = PuzzlePatterns[Math.floor(Math.random() * PuzzlePatterns.length)]
+    let puzzle_pattern = arr_pick(PuzzlePatterns)
+    let color_pattern = arr_pick(ColorPatterns)
 
-    let result = puzzle_pattern.map(pattern => {
-      let range = regular.ranges.findIndex(_ => _.advantage === pattern)
+    let result = puzzle_pattern.map((pattern, i) => {
+      let range = regular.ranges.findIndex(_ => _.advantage === pattern && _.color === color_pattern[i])
 
       let binned_eval = regular.binned_evals[range]
 
-      let bin = binned_eval[Math.floor(Math.random() * binned_eval.length)]
+      let bin = arr_pick(binned_eval.slice(0))
 
-      bin = bin.filter(_ => _.fen.includes('w'))
-      let fen_cp_eval = bin[Math.floor(Math.random() * bin.length)]
+      let fen_cp_eval = arr_pick(bin)
 
       return fen_cp_eval
     })
@@ -104,14 +118,20 @@ function Regular() {
   function cpEvalOfRank(rank: number) {
     return SelectPuzzles()[sortOrder().indexOf(3 - rank)].cp_eval / 100
   }
-  function AdvantageOfRank(rank: number) {
+  function RangeOfRank(rank: number) {
     let regular = Regular()
     let puzzle = (SelectPuzzles()[sortOrder().indexOf(3 - rank)])
     let index = regular.binned_evals.findIndex(binned_evals => {
       return binned_evals.some(_ => _.find(_ => _ === puzzle))
     })
 
-    return regular.ranges[index].advantage
+    return regular.ranges[index]
+  }
+
+  function AdvantageOfRank(rank: number) {
+    let range = RangeOfRank(rank)
+
+    return `${range.advantage} for ${range.color}`
   }
 
   const [hintRevealed, setHintRevealed] = createSignal(false)
@@ -155,7 +175,6 @@ function Regular() {
       </Show>
       <p class='flex-col-end'>
         Rank positions by how much white is better
-        <small>It's always white to move</small>
       </p>
       <button onClick={checkSortOrder}>{revealed() ? 'Next Puzzle' : 'Submit'}</button>
     </div>
@@ -176,6 +195,9 @@ function ShowRank(props: { reveal: boolean, rank: number, advantage: string, cpE
   </>)
 }
 
+function arr_pick<A>(array: A[]) {
+  return arr_shuffle(array.slice(0))[0]
+}
 
 export function arr_shuffle<A>(array: Array<A>) {
   let currentIndex = array.length;

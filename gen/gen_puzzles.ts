@@ -25,7 +25,7 @@ function advantageRange(
         winning: [350, 500],
         big_advantage: [250, 300],
         slight_advantage: [150, 200],
-        equal: [-90, 90],
+        equal: [0, 90],
     } as const
 
     const [a, b] = ranges[advantage]
@@ -44,9 +44,14 @@ let ranged_evals: FenEval[][] = ranges.map(_ => [])
 
 for (let sample of data) {
     let range = ranges.findIndex(_ => _.min <= sample.cp_eval && sample.cp_eval < _.max)
+    let range2 = ranges.findLastIndex(_ => _.min <= sample.cp_eval && sample.cp_eval < _.max)
 
     if (range !== -1) {
         ranged_evals[range].push(sample)
+
+        if (range2 !== range) {
+            ranged_evals[range2].push(sample)
+        }
     }
 }
 
@@ -66,6 +71,11 @@ function Bin_Evals(evals: FenEval[], range: Range): FenEval[][] {
         res[index].push(e)
     }
 
+    for (let a of res) {
+        if (a.length === 0) {
+            throw `Empty bin exception ${range.advantage} for ${range.color}`
+        }
+    }
 
     return res
 }
