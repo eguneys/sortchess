@@ -27,6 +27,7 @@
       a {
         padding-top: core.$space-0;
         line-height: 1.3em;
+
         &.active {
           border-bottom: core.$color-primary-active solid core.$space-0;
           background: core.$color-primary-tint;

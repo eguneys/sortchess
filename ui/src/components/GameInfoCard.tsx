@@ -67,7 +67,9 @@ export function NavigationDropdown() {
     return (<>
         <div ref={navRef} class='navigation-dropdown'>
             <Show when={store.revealed} fallback={
-                <a ref={activeRef} onClick={() => reveal()}>{TitlesByPathname[futureLocationPathname()]}</a>
+                <>
+                    Mode: <a ref={activeRef} onClick={() => reveal()}>{TitlesByPathname[futureLocationPathname()]}<span class='hint-icon'>...</span></a>
+                </>
             }>
                 <nav class={{ reveal: store.revealed_anim }}>
                     <div class='inner-flow'>
@@ -83,7 +85,7 @@ export function NavigationDropdown() {
                     </div>
                 </nav>
             </Show>
-        </div>
+        </div >
     </>)
 }
 
