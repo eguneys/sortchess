@@ -1,1 +1,0 @@
-import{E as e,b as t,d as n}from"./web-DESXOR_B.js";import{t as r}from"./GameInfoCard-CnI4lfUL.js";var i=t(`<div class=info-wrapper>`),a=t(`<h1 class="text-grey flex-col-center">Coming Soon`);function o(){return[(()=>{var t=i();return n(t,e(r,{date:new Date,id:`abc`})),t})(),a()]}export{o as default};
