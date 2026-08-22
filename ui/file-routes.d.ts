@@ -33,9 +33,21 @@ declare module "virtual:file-routes" {
   /** The flat route manifest, in scan order. */
   const routes: readonly [
     {
+      path: "/(modes)";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/(modes)")>;
+      $$route?: undefined;
+    },
+    {
       path: "/about";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/about")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/index")>;
       $$route?: undefined;
     },
     {
@@ -51,15 +63,15 @@ declare module "virtual:file-routes" {
       $$route: FileRouteEagerRef<typeof import("./src/routes/[...404]")>;
     },
     {
-      path: "/users/:id";
+      path: "/(modes)/countdown";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/users/[id]")>;
-      $$route: FileRouteEagerRef<typeof import("./src/routes/users/[id]")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/(modes)/countdown")>;
+      $$route?: undefined;
     },
     {
-      path: "/(modes)";
+      path: "/(modes)/daily";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/(modes)")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/(modes)/daily")>;
       $$route?: undefined;
     },
     {
@@ -75,22 +87,10 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/(modes)/daily";
+      path: "/users/:id";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/(modes)/daily")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/(modes)/countdown";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/(modes)/countdown")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/index")>;
-      $$route?: undefined;
+      $component: FileRouteLazyRef<typeof import("./src/routes/users/[id]")>;
+      $$route: FileRouteEagerRef<typeof import("./src/routes/users/[id]")>;
     }
   ];
   export default routes;
@@ -154,18 +154,18 @@ declare module "virtual:file-routes" {
           children?: undefined;
         },
         {
-          path: "/story";
-          id: "/story";
-          page: true;
-          $component: FileRouteLazyRef<typeof import("./src/routes/(modes)/story")>;
-          $$route?: undefined;
-          children?: undefined;
-        },
-        {
           path: "/daily";
           id: "/daily";
           page: true;
           $component: FileRouteLazyRef<typeof import("./src/routes/(modes)/daily")>;
+          $$route?: undefined;
+          children?: undefined;
+        },
+        {
+          path: "/story";
+          id: "/story";
+          page: true;
+          $component: FileRouteLazyRef<typeof import("./src/routes/(modes)/story")>;
           $$route?: undefined;
           children?: undefined;
         },

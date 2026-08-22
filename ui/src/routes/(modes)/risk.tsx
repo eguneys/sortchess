@@ -43,7 +43,7 @@ export default function Risk() {
                 }
             }
             if (hintRevealed()) {
-                winnings *= HINT_COST_PERCENTAGE
+                winnings -= winnings * HINT_COST_PERCENTAGE
             }
             deduct(winnings)
         }
@@ -65,11 +65,7 @@ export default function Risk() {
                 }
             }
             if (hintRevealed()) {
-                if (winnings < 0) {
-                    winnings /= HINT_COST_PERCENTAGE
-                } else {
-                    winnings *= HINT_COST_PERCENTAGE
-                }
+                winnings -= winnings * HINT_COST_PERCENTAGE
             }
             deduct(winnings)
         }
@@ -87,7 +83,7 @@ export default function Risk() {
                 }
             }
             if (hintRevealed()) {
-                winnings /= HINT_COST_PERCENTAGE
+                winnings -= winnings * HINT_COST_PERCENTAGE
             }
             deduct(-winnings)
         }
