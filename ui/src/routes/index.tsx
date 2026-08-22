@@ -10,7 +10,7 @@ import { createMemo, createSignal, For, Show } from 'solid-js';
 export default function Home() {
   return (
     <main class='home-main google-sans-flex-450'>
-      <Title>Sort Chess - Hello</Title>
+      <Title>Sort Chess - Play Sort Chess</Title>
       <PlaySortChessHeader />
       <div class='regular-wrapper'>
         <Regular />
