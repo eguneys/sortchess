@@ -28,7 +28,7 @@ export default function Risk() {
 
         const NOT_SURE_COST_PERCENTAGE = 0.3
         const SURE_COST_PERCENTAGE = 0.5
-        const HINT_COST_PERCENTAGE = 0.2;
+        const HINT_COST_PERCENTAGE = 0.1;
         if (state.isCorrect) {
             let winnings = 0
             switch (confidence) {
@@ -49,7 +49,7 @@ export default function Risk() {
         }
 
         const SEMI_ALL_IN_COST_PERCENTAGE = 0.65
-        const SEMI_NOT_SURE_COST_PERCENTAGE = 0.2
+        const SEMI_NOT_SURE_COST_PERCENTAGE = 0.05
         const SEMI_SURE_COST_PERCENTAGE = 0.35
         if (state.isSemiCorrect) {
             let winnings = 0
@@ -61,7 +61,7 @@ export default function Risk() {
                     winnings = -stackChips() * SEMI_SURE_COST_PERCENTAGE
                 } break
                 case 'not-sure': {
-                    winnings = stackChips() * SEMI_NOT_SURE_COST_PERCENTAGE
+                    winnings = -stackChips() * SEMI_NOT_SURE_COST_PERCENTAGE
                 }
             }
             if (hintRevealed()) {
