@@ -75,12 +75,6 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/(modes)/risk";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/(modes)/risk")>;
-      $$route?: undefined;
-    },
-    {
       path: "/(modes)/story";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/(modes)/story")>;
@@ -90,6 +84,12 @@ declare module "virtual:file-routes" {
       path: "/";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/index")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/(modes)/risk";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/(modes)/risk")>;
       $$route?: undefined;
     }
   ];

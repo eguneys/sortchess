@@ -10,6 +10,16 @@
   display: flex;
   flex-flow: column;
 }
+.flex-col-center {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.filler {
+  flex: 1;
+}
+
 .flex-col-end {
   display: flex;
   flex-flow: column;

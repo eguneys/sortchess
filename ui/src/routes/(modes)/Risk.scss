@@ -1,0 +1,121 @@
+@use "../../cl.scss";
+@use "../../core.scss";
+
+.risk-wrapper {
+  .actions {
+    padding: core.$space-2;
+    flex: 0 0 4em;
+
+    .info-and-hint {
+      @include cl.flex-row;
+      align-items: flex-end;
+      flex: 5;
+      justify-content: space-between;
+
+      small {
+        display: block;
+      }
+    }
+
+    .wager-stack {
+      @include cl.flex-col;
+      align-items: center;
+      flex: 3;
+    }
+
+    .wager-button-group {
+      @include cl.flex-row;
+      flex: 5;
+      align-self: stretch;
+    }
+
+    .wager-buttons {
+      @include cl.flex-row;
+      flex: 1;
+
+      button {
+        text-transform: none;
+        flex: 1;
+        padding: core.$space-2;
+      }
+    }
+
+    .next-button {
+      height: 100%;
+    }
+
+    .hints {
+      flex: 4;
+      line-height: 0.8em;
+      @include cl.flex-col;
+      color: core.$neutral-600;
+    }
+  }
+}
+
+.risk-wrapper {
+  .wager-stack {
+    position: relative;
+
+    .stack-chips {
+
+      &.flash {
+        animation: .3s ease flash infinite;
+      }
+
+      @keyframes flash {
+
+        0%,
+        100% {
+          opacity: 1;
+        }
+
+        50% {
+          opacity: 0;
+        }
+      }
+
+      &.win {
+        color: core.$color-correct;
+      }
+
+      &.lose {
+        color: core.$color-wrong;
+      }
+    }
+
+    .float-feedback {
+      border-radius: core.$space-1;
+      padding: core.$space-1;
+      line-height: 1em;
+      position: absolute;
+      right: calc(50% - 100px);
+      top: calc(50%);
+      opacity: 0;
+      transition:
+        transform .6s,
+        opacity 1s;
+
+      &.win {
+        color: core.$color-correct;
+
+        &.show {
+          opacity: 1;
+          transform: translateY(-40px);
+        }
+
+      }
+
+      &.lose {
+        color: core.$color-wrong;
+
+        &.show {
+          opacity: 1;
+          transform: translateY(20px);
+        }
+
+
+      }
+    }
+  }
+}

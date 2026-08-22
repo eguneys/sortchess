@@ -3,11 +3,25 @@ import { createMemo, createSignal } from "solid-js"
 import { AdvantageOfRange, FenCpEvalAndRange } from "../state/puzzle_picker"
 import SortChess3 from "./SortChess3"
 
-export default function SortChess3WithRankings(props: { revealed: boolean, selectPuzzles: [FenCpEvalAndRange, FenCpEvalAndRange, FenCpEvalAndRange] }) {
+type SortChess3RankingComputationState = {
+    fenOf(index: number): FEN
+    isCorrect: boolean
+    isSemiCorrect: boolean
+    isTotallyWrong: boolean
+    AdvantageOfRank(rank: number): string
+    cpEvalOfRank(rank: number): number
+    fenOfRank(rank: number): FEN
+}
+
+type SortChess3RankingComputationActions = {
+    setSortOrder(order: [number, number, number]): void
+}
+
+type SortChess3RankingComputationStore = [SortChess3RankingComputationState, SortChess3RankingComputationActions]
+
+export function createSortChess3RankingComputation(props: { selectPuzzles: [FenCpEvalAndRange, FenCpEvalAndRange, FenCpEvalAndRange] }): SortChess3RankingComputationStore {
 
     const SelectPuzzles = createMemo(() => props.selectPuzzles)
-
-    const revealed = createMemo(() => props.revealed)
 
     const [sortOrder, setSortOrder] = createSignal([0, 1, 2])
 
@@ -34,15 +48,52 @@ export default function SortChess3WithRankings(props: { revealed: boolean, selec
     const isSemiCorrect = () => !isCorrect() && (cpEvalOfRank(3) < cpEvalOfRank(2) || cpEvalOfRank(2) < cpEvalOfRank(1))
     const isTotallyWrong = () => !isCorrect() && !isSemiCorrect()
 
+    let state = {
+        fenOf(index: number) {
+            return SelectPuzzles()[index].fen_cp_eval.fen
+        },
+        AdvantageOfRank(rank: number) {
+            return AdvantageOfRank(rank)
+        },
+        cpEvalOfRank(rank: number) {
+            return cpEvalOfRank(rank)
+        },
+        fenOfRank(rank: number) {
+            return fenOfRank(rank)
+        },
+        get isCorrect() {
+            return isCorrect()
+        },
+        get isSemiCorrect() {
+            return isSemiCorrect()
+        },
+        get isTotallyWrong() {
+            return isTotallyWrong()
+        }
+    }
 
+    let actions = {
+        setSortOrder
+    }
+
+    return [state, actions]
+}
+
+export default function SortChess3WithRankings(props: { revealed: boolean, computation: SortChess3RankingComputationStore }) {
+
+    let state = createMemo(() => props.computation[0])
+    let actions = createMemo(() => props.computation[1])
+
+
+    const revealed = createMemo(() => props.revealed)
     return (<>
         <div class='slide-wrapper'>
-            <SortChess3 fens={[SelectPuzzles()[0].fen_cp_eval.fen, SelectPuzzles()[1].fen_cp_eval.fen, SelectPuzzles()[2].fen_cp_eval.fen]} onSortOrder={setSortOrder} />
+            <SortChess3 fens={[state().fenOf(0), state().fenOf(1), state().fenOf(2)]} onSortOrder={actions().setSortOrder} />
         </div>
-        <div class={['rankings', { correct: revealed() && isCorrect(), 'semi-correct': revealed() && isSemiCorrect(), 'wrong': revealed() && isTotallyWrong() }]}>
-            <ShowRank reveal={revealed()} rank={3} advantage={AdvantageOfRank(3)} cpEval={cpEvalOfRank(3)} fen={fenOfRank(3)} />
-            <ShowRank reveal={revealed()} rank={2} advantage={AdvantageOfRank(2)} cpEval={cpEvalOfRank(2)} fen={fenOfRank(2)} />
-            <ShowRank reveal={revealed()} rank={1} advantage={AdvantageOfRank(1)} cpEval={cpEvalOfRank(1)} fen={fenOfRank(1)} />
+        <div class={['rankings', { correct: revealed() && state().isCorrect, 'semi-correct': revealed() && state().isSemiCorrect, 'wrong': revealed() && state().isTotallyWrong }]}>
+            <ShowRank reveal={revealed()} rank={3} advantage={state().AdvantageOfRank(3)} cpEval={state().cpEvalOfRank(3)} fen={state().fenOfRank(3)} />
+            <ShowRank reveal={revealed()} rank={2} advantage={state().AdvantageOfRank(2)} cpEval={state().cpEvalOfRank(2)} fen={state().fenOfRank(2)} />
+            <ShowRank reveal={revealed()} rank={1} advantage={state().AdvantageOfRank(1)} cpEval={state().cpEvalOfRank(1)} fen={state().fenOfRank(1)} />
         </div>
     </>)
 }

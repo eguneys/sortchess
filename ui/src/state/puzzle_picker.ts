@@ -90,3 +90,25 @@ export function arr_shuffle<A>(array: Array<A>) {
     }
     return array
 }
+
+export function randomPuzzlePicker(regular: { ranges: Range[], binned_evals: FenEval[][][] }) {
+    let { puzzle_pattern, color_pattern } = pickPatterns()
+    let result = puzzle_pattern.map((pattern, i) => {
+        let range_index = regular.ranges.findIndex(_ => _.advantage === pattern && _.color === color_pattern[i])
+
+        let range = regular.ranges[range_index]
+        let binned_eval = regular.binned_evals[range_index]
+
+        let bin = arr_pick(binned_eval.slice(0))
+
+        let fen_cp_eval = arr_pick(bin)
+
+        return { range, fen_cp_eval }
+    })
+    arr_shuffle(result)
+    return result as [FenCpEvalAndRange, FenCpEvalAndRange, FenCpEvalAndRange]
+}
+
+export function HintsOfPuzzles(SelectPuzzles: FenCpEvalAndRange[]) {
+    return arr_shuffle(SelectPuzzles.map(puzzle => AdvantageOfRange(puzzle.range)))
+}

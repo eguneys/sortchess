@@ -23,8 +23,9 @@ export default function Home() {
 import './Regular.scss'
 import { FEN } from '@lichess-org/chessground/types';
 import { opposite } from 'chessops';
-import { AdvantageOfRange, arr_pick, FenCpEvalAndRange, getRegular, pickPatterns } from '../state/puzzle_picker';
+import { AdvantageOfRange, arr_pick, FenCpEvalAndRange, getRegular, HintsOfPuzzles, pickPatterns, randomPuzzlePicker } from '../state/puzzle_picker';
 import SortChess3WithRankings from '../components/SortChess3WithRankings';
+import Hint3Regular from '../components/Hint3Regular';
 
 function Regular() {
 
@@ -34,31 +35,13 @@ function Regular() {
 
   const SelectPuzzles = createMemo(() => {
     triggerNext()
-
-    let { puzzle_pattern, color_pattern } = pickPatterns()
-
     let regular = Regular()
-
-    let result = puzzle_pattern.map((pattern, i) => {
-      let range_index = regular.ranges.findIndex(_ => _.advantage === pattern && _.color === color_pattern[i])
-
-      let range = regular.ranges[range_index]
-      let binned_eval = regular.binned_evals[range_index]
-
-      let bin = arr_pick(binned_eval.slice(0))
-
-      let fen_cp_eval = arr_pick(bin)
-
-      return { range, fen_cp_eval }
-    })
-    arr_shuffle(result)
-    return result as [FenCpEvalAndRange, FenCpEvalAndRange, FenCpEvalAndRange]
+    return randomPuzzlePicker(regular)
   })
 
 
   const checkSortOrder = () => {
     if (revealed()) {
-
       setRevealed(false)
       setHintRevealed(false)
       setTriggerNext()
@@ -70,12 +53,11 @@ function Regular() {
   const [hintRevealed, setHintRevealed] = createSignal(false)
 
   const hints = createMemo(() => {
-
-    return arr_shuffle(SelectPuzzles().map(puzzle => AdvantageOfRange(puzzle.range)))
+    return HintsOfPuzzles(SelectPuzzles())
   })
 
-
   const [revealed, setRevealed] = createSignal(false)
+
   return (<>
     <div class='info-wrapper'>
       <GameInfoCard date={new Date()} id="abc" />
@@ -83,17 +65,8 @@ function Regular() {
 
     <SortChess3WithRankings revealed={revealed()} selectPuzzles={SelectPuzzles()} />
     <div class='actions'>
-      <Show when={!revealed()}>
-        <Show when={hintRevealed()} fallback={
-          <button class='give-hint' onClick={() => setHintRevealed(true)}>Hint</button>
-        }>
-          <div class='hints'>
-            <For each={hints()}>{hint =>
-              <span>{hint}</span>
-            }</For>
-          </div>
-        </Show>
-      </Show>
+      <Hint3Regular revealed={revealed()} hintRevealed={hintRevealed()} hints={hints()} onRevealed={() => setHintRevealed(true)} />
+
       <p class='flex-col-end'>
         Rank positions by how much white is better
         <small>Always white to move</small>
