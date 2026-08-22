@@ -49,7 +49,7 @@ export default function Risk() {
         }
 
         const SEMI_ALL_IN_COST_PERCENTAGE = 0.65
-        const SEMI_NOT_SURE_COST_PERCENTAGE = 0.05
+        const SEMI_NOT_SURE_COST_PERCENTAGE = 0.1
         const SEMI_SURE_COST_PERCENTAGE = 0.35
         if (state.isSemiCorrect) {
             let winnings = 0
