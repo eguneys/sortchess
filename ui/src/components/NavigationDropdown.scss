@@ -1,0 +1,40 @@
+@use "../cl.scss";
+@use "../core.scss";
+
+.navigation-dropdown {
+  nav {
+    display: grid;
+    grid-template-columns: 0fr;
+    transition:
+      grid-template-columns 230ms ease,
+      opacity 500ms ease;
+    opacity: 0;
+
+    &.reveal {
+      grid-template-columns: 1fr;
+      opacity: 1;
+    }
+
+    .inner-flow {
+      overflow: hidden;
+      min-width: 0;
+
+      display: flex;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+      gap: core.$space-1;
+
+      a {
+        padding-top: core.$space-0;
+        line-height: 1.3em;
+        &.active {
+          border-bottom: core.$color-primary-active solid core.$space-0;
+          background: core.$color-primary-tint;
+
+          text-decoration: none;
+          color: core.$color-primary-hover;
+        }
+      }
+    }
+  }
+}

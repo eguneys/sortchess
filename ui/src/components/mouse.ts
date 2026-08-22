@@ -42,6 +42,7 @@ export function createMouse(canvas: HTMLElement): Mouse {
     }
 
     const onDown = (e: PointerEvent) => {
+        if (e.button === 2) return
         canvas.setPointerCapture(e.pointerId)
         on_down(self, e.clientX, e.clientY)
     }
