@@ -5,5 +5,6 @@ export default function Story() {
         <div class='info-wrapper'>
             <GameInfoCard date={new Date()} id="abc" />
         </div>
+        <h1 class='text-grey flex-col-center'>Coming Soon</h1>
     </>)
 }

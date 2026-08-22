@@ -24,7 +24,7 @@ import './Regular.scss'
 import { FEN } from '@lichess-org/chessground/types';
 import { opposite } from 'chessops';
 import { AdvantageOfRange, arr_pick, FenCpEvalAndRange, getRegular, HintsOfPuzzles, pickPatterns, randomPuzzlePicker } from '../state/puzzle_picker';
-import SortChess3WithRankings from '../components/SortChess3WithRankings';
+import SortChess3WithRankings, { createSortChess3RankingComputation } from '../components/SortChess3WithRankings';
 import Hint3Regular from '../components/Hint3Regular';
 
 function Regular() {
@@ -38,6 +38,7 @@ function Regular() {
     let regular = Regular()
     return randomPuzzlePicker(regular)
   })
+  const sortChess3Computation = createMemo(() => createSortChess3RankingComputation({ selectPuzzles: SelectPuzzles() }))
 
 
   const checkSortOrder = () => {
@@ -63,7 +64,7 @@ function Regular() {
       <GameInfoCard date={new Date()} id="abc" />
     </div>
 
-    <SortChess3WithRankings revealed={revealed()} selectPuzzles={SelectPuzzles()} />
+    <SortChess3WithRankings revealed={revealed()} computation={sortChess3Computation()} />
     <div class='actions'>
       <Hint3Regular revealed={revealed()} hintRevealed={hintRevealed()} hints={hints()} onRevealed={() => setHintRevealed(true)} />
 

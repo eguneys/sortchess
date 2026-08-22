@@ -20,9 +20,81 @@ export default function Risk() {
         return randomPuzzlePicker(regular)
     })
 
-    const checkResult = (confidence: Confidence) => {
+    const sortChess3Computation = createMemo(() => createSortChess3RankingComputation({ selectPuzzles: SelectPuzzles() }))
+    const sortChess3State = createMemo(() => sortChess3Computation()[0])
 
+    const checkResult = (confidence: Confidence) => {
+        let state = sortChess3State()
+
+        const NOT_SURE_COST_PERCENTAGE = 0.3
+        const SURE_COST_PERCENTAGE = 0.5
+        const HINT_COST_PERCENTAGE = 0.2;
+        if (state.isCorrect) {
+            let winnings = 0
+            switch (confidence) {
+                case 'all-in': {
+                    winnings = stackChips()
+                } break
+                case 'sure': {
+                    winnings = stackChips() * SURE_COST_PERCENTAGE
+                } break
+                case 'not-sure': {
+                    winnings = stackChips() * NOT_SURE_COST_PERCENTAGE
+                }
+            }
+            if (hintRevealed()) {
+                winnings *= HINT_COST_PERCENTAGE
+            }
+            deduct(winnings)
+        }
+
+        const SEMI_ALL_IN_COST_PERCENTAGE = 0.65
+        const SEMI_NOT_SURE_COST_PERCENTAGE = 0.2
+        const SEMI_SURE_COST_PERCENTAGE = 0.35
+        if (state.isSemiCorrect) {
+            let winnings = 0
+            switch (confidence) {
+                case 'all-in': {
+                    winnings = -stackChips() * SEMI_ALL_IN_COST_PERCENTAGE
+                } break
+                case 'sure': {
+                    winnings = -stackChips() * SEMI_SURE_COST_PERCENTAGE
+                } break
+                case 'not-sure': {
+                    winnings = stackChips() * SEMI_NOT_SURE_COST_PERCENTAGE
+                }
+            }
+            if (hintRevealed()) {
+                if (winnings < 0) {
+                    winnings /= HINT_COST_PERCENTAGE
+                } else {
+                    winnings *= HINT_COST_PERCENTAGE
+                }
+            }
+            deduct(winnings)
+        }
+        if (state.isTotallyWrong) {
+            let winnings = 0
+            switch (confidence) {
+                case 'all-in': {
+                    winnings = stackChips()
+                } break
+                case 'sure': {
+                    winnings = stackChips() * SURE_COST_PERCENTAGE
+                } break
+                case 'not-sure': {
+                    winnings = stackChips() * NOT_SURE_COST_PERCENTAGE
+                }
+            }
+            if (hintRevealed()) {
+                winnings /= HINT_COST_PERCENTAGE
+            }
+            deduct(-winnings)
+        }
+
+        setRevealed(true)
     }
+
 
     const nextPuzzle = () => {
         setRevealed(false)
@@ -39,12 +111,13 @@ export default function Risk() {
     const [revealed, setRevealed] = createSignal(false)
 
 
-    const [stackChips, setStackChips] = createSignal(100)
+    const STARTING_STACK = 100
+    const [stackChips, setStackChips] = createSignal(STARTING_STACK)
     const [deductFloatFeedback, setDeductFloatFeedback] = createSignal(0)
     const [showFloatFeedback, setShowFloatFeedback] = createSignal(false)
 
     const deduct = (chips: number) => {
-        setStackChips(stackChips() - chips)
+        setStackChips(Math.max(STARTING_STACK, stackChips() + chips))
         setDeductFloatFeedback(chips)
         setShowFloatFeedback(true)
         setTimeout(() => {
@@ -52,7 +125,6 @@ export default function Risk() {
         }, 1000)
     }
 
-    const sortChess3Computation = createMemo(() => createSortChess3RankingComputation({ selectPuzzles: SelectPuzzles() }))
 
     return (<>
         <div class='regular-wrapper risk-wrapper'>
@@ -73,9 +145,9 @@ export default function Risk() {
                 </div>
 
                 <div class='wager-stack'>
-                    Your Stack <span class={['stack-chips', { flash: showFloatFeedback(), lose: showFloatFeedback() && deductFloatFeedback() < 0, win: showFloatFeedback() && deductFloatFeedback() > 0 }]}>{stackChips()}$</span>
+                    Your Stack <span class={['stack-chips', { flash: showFloatFeedback(), lose: showFloatFeedback() && deductFloatFeedback() < 0, win: showFloatFeedback() && deductFloatFeedback() > 0 }]}>{stackChips().toFixed(1)}$</span>
                     <span class={['float-feedback', { show: showFloatFeedback(), lose: deductFloatFeedback() < 0, win: deductFloatFeedback() > 0 }]}>
-                        {showFloatFeedback() ? deductFloatFeedback() : ''}
+                        {showFloatFeedback() ? deductFloatFeedback().toFixed(1) : ''}
                     </span>
                 </div>
                 <div class='wager-button-group'>

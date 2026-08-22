@@ -1,3 +1,5 @@
+@use './core.scss';
+
 .text-right {
   text-align: right;
 }
@@ -10,6 +12,7 @@
   display: flex;
   flex-flow: column;
 }
+
 .flex-col-center {
   display: flex;
   flex-flow: column;
@@ -29,4 +32,8 @@
 .flex-row {
   display: flex;
   flex-flow: row;
+}
+
+.text-grey {
+  color: core.$color-text-secondary;
 }

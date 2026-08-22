@@ -63,15 +63,9 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/(modes)/countdown";
+      path: "/(modes)/risk";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/(modes)/countdown")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/(modes)/daily";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/(modes)/daily")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/(modes)/risk")>;
       $$route?: undefined;
     },
     {
@@ -81,15 +75,21 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/";
+      path: "/(modes)/daily";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/index")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/(modes)/daily")>;
       $$route?: undefined;
     },
     {
-      path: "/(modes)/risk";
+      path: "/(modes)/countdown";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/(modes)/risk")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/(modes)/countdown")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/index")>;
       $$route?: undefined;
     }
   ];
@@ -154,18 +154,18 @@ declare module "virtual:file-routes" {
           children?: undefined;
         },
         {
-          path: "/daily";
-          id: "/daily";
-          page: true;
-          $component: FileRouteLazyRef<typeof import("./src/routes/(modes)/daily")>;
-          $$route?: undefined;
-          children?: undefined;
-        },
-        {
           path: "/story";
           id: "/story";
           page: true;
           $component: FileRouteLazyRef<typeof import("./src/routes/(modes)/story")>;
+          $$route?: undefined;
+          children?: undefined;
+        },
+        {
+          path: "/daily";
+          id: "/daily";
+          page: true;
+          $component: FileRouteLazyRef<typeof import("./src/routes/(modes)/daily")>;
           $$route?: undefined;
           children?: undefined;
         },
