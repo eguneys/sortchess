@@ -18,10 +18,11 @@ export default function Document(props: ParentProps) {
         <title>sortchess.com · Play Sort Chess</title>
 
         <meta name="description" content="Sort 3 Chess Positions with Risk, Story, and Time Mode or Daily puzzles Local-First No-Backend No-Tracking" />
-        <meta property="og:title" content="Play Sort Chess in Sort Chess with Risk, Story, and Time Mode or Daily puzzles" />
+        <meta property="og:title" content="Play Sort Chess in Sort Chess with Modes or Daily puzzles" />
         <meta property="og:description" content="Sort 3 Chess Positions with Risk, Story, and Time Mode or Daily puzzles Local-First No-Backend No-Tracking" />
         <meta property="og:url" content="https://sortchess.com" />
-        <meta property="og:logo" content="https://sortchess.com/logo-big.png" />
+        <meta property="og:logo" content="https://sortchess.com/favicon.png" />
+        <meta property="og:image" content="https://sortchess.com/logo-big.png" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="sortchess.com" />
         <meta property="og:image:width" content="1254" />
@@ -29,7 +30,7 @@ export default function Document(props: ParentProps) {
         <meta property="og:image:url" content="https://sortchess.com/logo-big.png" />
         <meta property="og:image:secure_url" content="https://sortchess.com/logo-big.png" />
 
-        <meta property="twitter:card" content="summary" />
+        <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:image" content="https://sortchess.com/logo-big.png" />
 
         <style>
