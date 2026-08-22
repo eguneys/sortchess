@@ -1,0 +1,1 @@
+import{E as e,b as t,d as n}from"./web-DESXOR_B.js";import{t as r}from"./GameInfoCard-BSMVwXD4.js";var i=t(`<div class=info-wrapper>`);function a(){return(()=>{var t=i();return n(t,e(r,{date:new Date,id:`abc`})),t})()}export{a as default};

@@ -1,1 +1,0 @@
-function e(){return`Story`}export{e as default};
